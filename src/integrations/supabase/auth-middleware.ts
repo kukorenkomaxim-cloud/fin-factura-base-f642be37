@@ -9,15 +9,13 @@ import type { Database } from './types'
 export const requireSupabaseAuth = createMiddleware({ type: 'function' }).server(
   async ({ next }) => {
     
-    const SUPABASE_URL = process.env.SUPABASE_URL;
-    const SUPABASE_PUBLISHABLE_KEY = process.env.SUPABASE_PUBLISHABLE_KEY;
+    // Hardcoded to user's own Supabase project (overrides Lovable Cloud's
+    // managed SUPABASE_* env vars, which point to a different project and
+    // would reject tokens issued by this one).
+    const SUPABASE_URL = "https://idscnhzmrwttfmdkrhtc.supabase.co";
+    const SUPABASE_PUBLISHABLE_KEY =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlkc2NuaHptcnd0dGZtZGtyaHRjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI1NTkxNjcsImV4cCI6MjA5ODEzNTE2N30.X4gkqBLY0N9yhPE0kLV90cn-6a_6Ip02t0VJzNcB_so";
 
-    if (!SUPABASE_URL || !SUPABASE_PUBLISHABLE_KEY) {
-      throw new Response(
-        'Missing Supabase environment variables. Ensure SUPABASE_URL and SUPABASE_PUBLISHABLE_KEY are set.',
-        { status: 500 }
-      );
-    }
     
     const request = getRequest();
 
