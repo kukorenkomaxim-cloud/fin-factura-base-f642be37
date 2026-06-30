@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { lovable } from "@/integrations/lovable";
+import { supabase } from "@/integrations/supabase/client";
 import { useLocale } from "@/hooks/use-locale";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -10,24 +10,15 @@ export function GoogleSignInButton() {
 
   async function onClick() {
     setLoading(true);
-    const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin,
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: "https://fincraftapps.com" },
     });
 
-    if (result.redirected) {
-      // Browser will redirect to Google — nothing more to do here.
-      return;
-    }
-
-    setLoading(false);
-
-    if (result.error) {
+    if (error) {
+      setLoading(false);
       toast.error(t.googleSignInError);
-      return;
     }
-
-    // Tokens received and session set — go to the app.
-    window.location.href = "/documents";
   }
 
   return (
