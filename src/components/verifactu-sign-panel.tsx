@@ -514,7 +514,7 @@ export function VerifactuSignPanel({ documentId }: Props) {
               </p>
               <Button
                 onClick={handleSubmitAeat}
-                disabled={busy || !certBase64 || !password}
+                disabled={busy || !hasCredentials}
                 variant={verifactuMode === "production" ? "destructive" : "default"}
               >
                 <Send className="mr-2 h-4 w-4" />
