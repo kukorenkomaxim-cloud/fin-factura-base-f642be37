@@ -250,7 +250,7 @@ export function VerifactuSignPanel({ documentId }: Props) {
   async function handleSign() {
     const desktop = getDesktop();
     if (!desktop || !doc) return;
-    if (!certBase64 || !password) {
+    if (!hasCredentials) {
       toast.error(t.selectCertFirst);
       return;
     }
