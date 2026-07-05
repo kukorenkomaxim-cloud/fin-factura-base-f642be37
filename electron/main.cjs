@@ -321,7 +321,8 @@ function buildSignedXml(xml, { keyPem, certPem, certChain }) {
 
 ipcMain.handle('signXml', async (_e, { base64, password, xml }) => {
   try {
-    const pfx = loadPfx(base64, password);
+    const creds = resolveCreds(base64, password);
+    const pfx = loadPfx(creds.base64, creds.password);
     const signedXml = buildSignedXml(xml, pfx);
     return { ok: true, signedXml };
   } catch (err) {
