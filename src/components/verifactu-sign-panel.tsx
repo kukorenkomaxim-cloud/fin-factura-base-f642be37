@@ -108,6 +108,12 @@ export function VerifactuSignPanel({ documentId }: Props) {
       if (cs?.verifactu_mode) {
         setVerifactuMode(cs.verifactu_mode as "sandbox" | "production");
       }
+      const desktop = getDesktop();
+      if (desktop) {
+        const s = await desktop.getSavedCertificate();
+        if (s && "info" in s) setSavedCert({ name: s.name, info: s.info });
+        else setSavedCert(null);
+      }
     })();
   }, [documentId]);
 
