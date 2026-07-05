@@ -485,7 +485,7 @@ export function VerifactuSignPanel({ documentId }: Props) {
           )}
 
           <div className="flex flex-wrap gap-2 pt-2">
-            <Button onClick={handleSign} disabled={busy || !certBase64 || !password}>
+            <Button onClick={handleSign} disabled={busy || !hasCredentials}>
               <ShieldCheck className="mr-2 h-4 w-4" />
               {t.signXmlBtn}
             </Button>
