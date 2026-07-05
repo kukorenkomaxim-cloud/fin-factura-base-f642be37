@@ -1,6 +1,6 @@
 {
   "name": "fincraft-desktop",
-  "version": "7.0.0",
+  "version": "7.0.1",
   "main": "main.cjs",
   "description": "FinCraft Desktop wrapper",
   "author": "FinCraft",
