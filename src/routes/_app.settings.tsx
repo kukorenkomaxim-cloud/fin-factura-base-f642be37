@@ -207,6 +207,8 @@ function SettingsPage() {
 
       <EmailAccountsSection />
 
+      <DesktopCertificateSection />
+
 
 
 
