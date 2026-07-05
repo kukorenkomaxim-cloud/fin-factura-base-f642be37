@@ -6,4 +6,7 @@ contextBridge.exposeInMainWorld('facturaDesktop', {
   getCertificateInfo: (args) => ipcRenderer.invoke('getCertificateInfo', args),
   signXml: (args) => ipcRenderer.invoke('signXml', args),
   submitToAeat: (args) => ipcRenderer.invoke('submitToAeat', args),
+  saveCertificate: (args) => ipcRenderer.invoke('saveCertificate', args),
+  getSavedCertificate: () => ipcRenderer.invoke('getSavedCertificate'),
+  clearSavedCertificate: () => ipcRenderer.invoke('clearSavedCertificate'),
 });

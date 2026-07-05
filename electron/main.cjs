@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, dialog } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, safeStorage } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const https = require('https');
@@ -101,6 +101,87 @@ ipcMain.handle('getCertificateInfo', async (_e, { base64, password }) => {
     validTo: cert.validity.notAfter.toISOString(),
   };
 });
+
+// ---------- Saved certificate (encrypted at rest via Electron safeStorage) ----------
+
+function savedCertPaths() {
+  const dir = app.getPath('userData');
+  return {
+    data: path.join(dir, 'verifactu-cert.dat'),
+    meta: path.join(dir, 'verifactu-cert.meta.json'),
+  };
+}
+
+function readSavedCert() {
+  const { data, meta } = savedCertPaths();
+  if (!fs.existsSync(data) || !fs.existsSync(meta)) return null;
+  if (!safeStorage.isEncryptionAvailable()) {
+    throw new Error('safeStorage no está disponible en este sistema');
+  }
+  const enc = fs.readFileSync(data);
+  const dec = safeStorage.decryptString(enc);
+  const parsed = JSON.parse(dec);
+  const metaJson = JSON.parse(fs.readFileSync(meta, 'utf8'));
+  return { base64: parsed.base64, password: parsed.password, name: metaJson.name, info: metaJson.info };
+}
+
+function certInfoFromCert(cert) {
+  const subj = cert.subject.attributes.map(a => `${a.shortName}=${a.value}`).join(', ');
+  const nifAttr = cert.subject.attributes.find(a => a.shortName === 'serialNumber' || a.name === 'serialNumber');
+  let nif = '';
+  if (nifAttr) {
+    const v = String(nifAttr.value);
+    nif = v.replace(/^IDCES-?/i, '');
+  }
+  return {
+    subject: subj,
+    nif,
+    validFrom: cert.validity.notBefore.toISOString(),
+    validTo: cert.validity.notAfter.toISOString(),
+  };
+}
+
+ipcMain.handle('saveCertificate', async (_e, { base64, password, name }) => {
+  try {
+    if (!safeStorage.isEncryptionAvailable()) {
+      return { ok: false, error: 'safeStorage no está disponible en este sistema' };
+    }
+    // Validate by trying to decrypt the PFX with the given password.
+    const { cert } = loadPfx(base64, password);
+    const info = certInfoFromCert(cert);
+    const { data, meta } = savedCertPaths();
+    const enc = safeStorage.encryptString(JSON.stringify({ base64, password }));
+    fs.writeFileSync(data, enc, { mode: 0o600 });
+    fs.writeFileSync(meta, JSON.stringify({ name: name || 'certificate.p12', info }), { mode: 0o600 });
+    return { ok: true, name: name || 'certificate.p12', info };
+  } catch (err) {
+    return { ok: false, error: String(err && err.message || err) };
+  }
+});
+
+ipcMain.handle('getSavedCertificate', async () => {
+  try {
+    const s = readSavedCert();
+    if (!s) return null;
+    return { name: s.name, info: s.info };
+  } catch (err) {
+    return { error: String(err && err.message || err) };
+  }
+});
+
+ipcMain.handle('clearSavedCertificate', async () => {
+  const { data, meta } = savedCertPaths();
+  try { if (fs.existsSync(data)) fs.unlinkSync(data); } catch {}
+  try { if (fs.existsSync(meta)) fs.unlinkSync(meta); } catch {}
+  return { ok: true };
+});
+
+function resolveCreds(base64, password) {
+  if (base64 && password) return { base64, password };
+  const s = readSavedCert();
+  if (!s) throw new Error('No hay certificado guardado');
+  return { base64: s.base64, password: s.password };
+}
 
 // ---------- XAdES-EPES enveloped signing ----------
 
@@ -240,7 +321,8 @@ function buildSignedXml(xml, { keyPem, certPem, certChain }) {
 
 ipcMain.handle('signXml', async (_e, { base64, password, xml }) => {
   try {
-    const pfx = loadPfx(base64, password);
+    const creds = resolveCreds(base64, password);
+    const pfx = loadPfx(creds.base64, creds.password);
     const signedXml = buildSignedXml(xml, pfx);
     return { ok: true, signedXml };
   } catch (err) {
@@ -269,13 +351,19 @@ function pickError(xml) {
 }
 
 ipcMain.handle('submitToAeat', async (_e, { base64, password, signedXml, mode }) => {
+  let creds;
+  try {
+    creds = resolveCreds(base64, password);
+  } catch (err) {
+    return { ok: false, httpStatus: 0, csv: '', estadoEnvio: '', responseXml: '', errorMessage: String(err && err.message || err) };
+  }
   const endpoint = AEAT_ENDPOINTS[mode] || AEAT_ENDPOINTS.sandbox;
   const url = new URL(endpoint);
-  const pfxBuf = Buffer.from(base64, 'base64');
+  const pfxBuf = Buffer.from(creds.base64, 'base64');
 
   const agent = new https.Agent({
     pfx: pfxBuf,
-    passphrase: password,
+    passphrase: creds.password,
     keepAlive: false,
   });
 
