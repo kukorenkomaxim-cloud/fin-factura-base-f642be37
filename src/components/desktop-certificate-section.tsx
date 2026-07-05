@@ -90,7 +90,7 @@ export function DesktopCertificateSection() {
         </div>
       )}
 
-      {desktop && !loading && (
+      {desktop && (
         <div className="mt-4 space-y-4">
           {saved ? (
             <div className="space-y-3">
