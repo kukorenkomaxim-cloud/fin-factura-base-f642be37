@@ -89,7 +89,9 @@ export function VerifactuSignPanel({ documentId }: Props) {
   const [certName, setCertName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [certInfo, setCertInfo] = useState<DesktopCertInfo | null>(null);
+  const [savedCert, setSavedCert] = useState<{ name: string; info: DesktopCertInfo } | null>(null);
   const [busy, setBusy] = useState(false);
+  const hasCredentials = !!savedCert || (!!certBase64 && !!password);
 
   useEffect(() => {
     (async () => {
