@@ -3,7 +3,7 @@
   "private": true,
   "sideEffects": false,
   "type": "module",
-  "main": "electron/main.bundled.cjs",
+  "main": "electron/main.cjs",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",

@@ -8,9 +8,9 @@ var __commonJS = (cb, mod) => function __require() {
   }
 };
 
-// electron/node_modules/node-forge/lib/forge.js
+// node_modules/node-forge/lib/forge.js
 var require_forge = __commonJS({
-  "electron/node_modules/node-forge/lib/forge.js"(exports2, module2) {
+  "node_modules/node-forge/lib/forge.js"(exports2, module2) {
     module2.exports = {
       // default options
       options: {
@@ -20,9 +20,9 @@ var require_forge = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/baseN.js
+// node_modules/node-forge/lib/baseN.js
 var require_baseN = __commonJS({
-  "electron/node_modules/node-forge/lib/baseN.js"(exports2, module2) {
+  "node_modules/node-forge/lib/baseN.js"(exports2, module2) {
     var api = {};
     module2.exports = api;
     var _reverseAlphabets = {};
@@ -134,9 +134,9 @@ var require_baseN = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/util.js
+// node_modules/node-forge/lib/util.js
 var require_util = __commonJS({
-  "electron/node_modules/node-forge/lib/util.js"(exports2, module2) {
+  "node_modules/node-forge/lib/util.js"(exports2, module2) {
     var forge2 = require_forge();
     var baseN = require_baseN();
     var util = module2.exports = forge2.util = forge2.util || {};
@@ -1515,9 +1515,9 @@ var require_util = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/cipher.js
+// node_modules/node-forge/lib/cipher.js
 var require_cipher = __commonJS({
-  "electron/node_modules/node-forge/lib/cipher.js"(exports2, module2) {
+  "node_modules/node-forge/lib/cipher.js"(exports2, module2) {
     var forge2 = require_forge();
     require_util();
     module2.exports = forge2.cipher = forge2.cipher || {};
@@ -1632,9 +1632,9 @@ var require_cipher = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/cipherModes.js
+// node_modules/node-forge/lib/cipherModes.js
 var require_cipherModes = __commonJS({
-  "electron/node_modules/node-forge/lib/cipherModes.js"(exports2, module2) {
+  "node_modules/node-forge/lib/cipherModes.js"(exports2, module2) {
     var forge2 = require_forge();
     require_util();
     forge2.cipher = forge2.cipher || {};
@@ -2282,9 +2282,9 @@ var require_cipherModes = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/aes.js
+// node_modules/node-forge/lib/aes.js
 var require_aes = __commonJS({
-  "electron/node_modules/node-forge/lib/aes.js"(exports2, module2) {
+  "node_modules/node-forge/lib/aes.js"(exports2, module2) {
     var forge2 = require_forge();
     require_cipher();
     require_cipherModes();
@@ -2557,9 +2557,9 @@ var require_aes = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/oids.js
+// node_modules/node-forge/lib/oids.js
 var require_oids = __commonJS({
-  "electron/node_modules/node-forge/lib/oids.js"(exports2, module2) {
+  "node_modules/node-forge/lib/oids.js"(exports2, module2) {
     var forge2 = require_forge();
     forge2.pki = forge2.pki || {};
     var oids = module2.exports = forge2.pki.oids = forge2.oids = forge2.oids || {};
@@ -2702,9 +2702,9 @@ var require_oids = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/asn1.js
+// node_modules/node-forge/lib/asn1.js
 var require_asn1 = __commonJS({
-  "electron/node_modules/node-forge/lib/asn1.js"(exports2, module2) {
+  "node_modules/node-forge/lib/asn1.js"(exports2, module2) {
     var forge2 = require_forge();
     require_util();
     require_oids();
@@ -3521,18 +3521,18 @@ var require_asn1 = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/md.js
+// node_modules/node-forge/lib/md.js
 var require_md = __commonJS({
-  "electron/node_modules/node-forge/lib/md.js"(exports2, module2) {
+  "node_modules/node-forge/lib/md.js"(exports2, module2) {
     var forge2 = require_forge();
     module2.exports = forge2.md = forge2.md || {};
     forge2.md.algorithms = forge2.md.algorithms || {};
   }
 });
 
-// electron/node_modules/node-forge/lib/hmac.js
+// node_modules/node-forge/lib/hmac.js
 var require_hmac = __commonJS({
-  "electron/node_modules/node-forge/lib/hmac.js"(exports2, module2) {
+  "node_modules/node-forge/lib/hmac.js"(exports2, module2) {
     var forge2 = require_forge();
     require_md();
     require_util();
@@ -3612,9 +3612,9 @@ var require_hmac = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/md5.js
+// node_modules/node-forge/lib/md5.js
 var require_md5 = __commonJS({
-  "electron/node_modules/node-forge/lib/md5.js"(exports2, module2) {
+  "node_modules/node-forge/lib/md5.js"(exports2, module2) {
     var forge2 = require_forge();
     require_md();
     require_util();
@@ -3904,9 +3904,9 @@ var require_md5 = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/pem.js
+// node_modules/node-forge/lib/pem.js
 var require_pem = __commonJS({
-  "electron/node_modules/node-forge/lib/pem.js"(exports2, module2) {
+  "node_modules/node-forge/lib/pem.js"(exports2, module2) {
     var forge2 = require_forge();
     require_util();
     var pem = module2.exports = forge2.pem = forge2.pem || {};
@@ -4055,9 +4055,9 @@ var require_pem = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/des.js
+// node_modules/node-forge/lib/des.js
 var require_des = __commonJS({
-  "electron/node_modules/node-forge/lib/des.js"(exports2, module2) {
+  "node_modules/node-forge/lib/des.js"(exports2, module2) {
     var forge2 = require_forge();
     require_cipher();
     require_cipherModes();
@@ -4293,9 +4293,9 @@ var require_des = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/pbkdf2.js
+// node_modules/node-forge/lib/pbkdf2.js
 var require_pbkdf2 = __commonJS({
-  "electron/node_modules/node-forge/lib/pbkdf2.js"(exports2, module2) {
+  "node_modules/node-forge/lib/pbkdf2.js"(exports2, module2) {
     var forge2 = require_forge();
     require_hmac();
     require_md();
@@ -4408,9 +4408,9 @@ var require_pbkdf2 = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/sha256.js
+// node_modules/node-forge/lib/sha256.js
 var require_sha256 = __commonJS({
-  "electron/node_modules/node-forge/lib/sha256.js"(exports2, module2) {
+  "node_modules/node-forge/lib/sha256.js"(exports2, module2) {
     var forge2 = require_forge();
     require_md();
     require_util();
@@ -4641,9 +4641,9 @@ var require_sha256 = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/prng.js
+// node_modules/node-forge/lib/prng.js
 var require_prng = __commonJS({
-  "electron/node_modules/node-forge/lib/prng.js"(exports2, module2) {
+  "node_modules/node-forge/lib/prng.js"(exports2, module2) {
     var forge2 = require_forge();
     require_util();
     var _crypto = null;
@@ -4881,9 +4881,9 @@ var require_prng = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/random.js
+// node_modules/node-forge/lib/random.js
 var require_random = __commonJS({
-  "electron/node_modules/node-forge/lib/random.js"(exports2, module2) {
+  "node_modules/node-forge/lib/random.js"(exports2, module2) {
     var forge2 = require_forge();
     require_aes();
     require_sha256();
@@ -4989,9 +4989,9 @@ var require_random = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/rc2.js
+// node_modules/node-forge/lib/rc2.js
 var require_rc2 = __commonJS({
-  "electron/node_modules/node-forge/lib/rc2.js"(exports2, module2) {
+  "node_modules/node-forge/lib/rc2.js"(exports2, module2) {
     var forge2 = require_forge();
     require_util();
     var piTable = [
@@ -5450,9 +5450,9 @@ var require_rc2 = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/jsbn.js
+// node_modules/node-forge/lib/jsbn.js
 var require_jsbn = __commonJS({
-  "electron/node_modules/node-forge/lib/jsbn.js"(exports2, module2) {
+  "node_modules/node-forge/lib/jsbn.js"(exports2, module2) {
     var forge2 = require_forge();
     module2.exports = forge2.jsbn = forge2.jsbn || {};
     var dbits;
@@ -6638,9 +6638,9 @@ var require_jsbn = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/sha1.js
+// node_modules/node-forge/lib/sha1.js
 var require_sha1 = __commonJS({
-  "electron/node_modules/node-forge/lib/sha1.js"(exports2, module2) {
+  "node_modules/node-forge/lib/sha1.js"(exports2, module2) {
     var forge2 = require_forge();
     require_md();
     require_util();
@@ -6834,9 +6834,9 @@ var require_sha1 = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/pkcs1.js
+// node_modules/node-forge/lib/pkcs1.js
 var require_pkcs1 = __commonJS({
-  "electron/node_modules/node-forge/lib/pkcs1.js"(exports2, module2) {
+  "node_modules/node-forge/lib/pkcs1.js"(exports2, module2) {
     var forge2 = require_forge();
     require_util();
     require_random();
@@ -6986,9 +6986,9 @@ var require_pkcs1 = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/prime.js
+// node_modules/node-forge/lib/prime.js
 var require_prime = __commonJS({
-  "electron/node_modules/node-forge/lib/prime.js"(exports2, module2) {
+  "node_modules/node-forge/lib/prime.js"(exports2, module2) {
     var forge2 = require_forge();
     require_util();
     require_jsbn();
@@ -7148,9 +7148,9 @@ var require_prime = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/rsa.js
+// node_modules/node-forge/lib/rsa.js
 var require_rsa = __commonJS({
-  "electron/node_modules/node-forge/lib/rsa.js"(exports2, module2) {
+  "node_modules/node-forge/lib/rsa.js"(exports2, module2) {
     var forge2 = require_forge();
     require_asn1();
     require_jsbn();
@@ -8349,9 +8349,9 @@ var require_rsa = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/pbe.js
+// node_modules/node-forge/lib/pbe.js
 var require_pbe = __commonJS({
-  "electron/node_modules/node-forge/lib/pbe.js"(exports2, module2) {
+  "node_modules/node-forge/lib/pbe.js"(exports2, module2) {
     var forge2 = require_forge();
     require_aes();
     require_asn1();
@@ -9126,9 +9126,9 @@ var require_pbe = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/pkcs7asn1.js
+// node_modules/node-forge/lib/pkcs7asn1.js
 var require_pkcs7asn1 = __commonJS({
-  "electron/node_modules/node-forge/lib/pkcs7asn1.js"(exports2, module2) {
+  "node_modules/node-forge/lib/pkcs7asn1.js"(exports2, module2) {
     var forge2 = require_forge();
     require_asn1();
     require_util();
@@ -9427,9 +9427,9 @@ var require_pkcs7asn1 = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/mgf1.js
+// node_modules/node-forge/lib/mgf1.js
 var require_mgf1 = __commonJS({
-  "electron/node_modules/node-forge/lib/mgf1.js"(exports2, module2) {
+  "node_modules/node-forge/lib/mgf1.js"(exports2, module2) {
     var forge2 = require_forge();
     require_util();
     forge2.mgf = forge2.mgf || {};
@@ -9462,9 +9462,9 @@ var require_mgf1 = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/mgf.js
+// node_modules/node-forge/lib/mgf.js
 var require_mgf = __commonJS({
-  "electron/node_modules/node-forge/lib/mgf.js"(exports2, module2) {
+  "node_modules/node-forge/lib/mgf.js"(exports2, module2) {
     var forge2 = require_forge();
     require_mgf1();
     module2.exports = forge2.mgf = forge2.mgf || {};
@@ -9472,9 +9472,9 @@ var require_mgf = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/pss.js
+// node_modules/node-forge/lib/pss.js
 var require_pss = __commonJS({
-  "electron/node_modules/node-forge/lib/pss.js"(exports2, module2) {
+  "node_modules/node-forge/lib/pss.js"(exports2, module2) {
     var forge2 = require_forge();
     require_random();
     require_util();
@@ -9591,9 +9591,9 @@ var require_pss = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/x509.js
+// node_modules/node-forge/lib/x509.js
 var require_x509 = __commonJS({
-  "electron/node_modules/node-forge/lib/x509.js"(exports2, module2) {
+  "node_modules/node-forge/lib/x509.js"(exports2, module2) {
     var forge2 = require_forge();
     require_aes();
     require_asn1();
@@ -11721,9 +11721,9 @@ var require_x509 = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/pkcs12.js
+// node_modules/node-forge/lib/pkcs12.js
 var require_pkcs12 = __commonJS({
-  "electron/node_modules/node-forge/lib/pkcs12.js"(exports2, module2) {
+  "node_modules/node-forge/lib/pkcs12.js"(exports2, module2) {
     var forge2 = require_forge();
     require_asn1();
     require_hmac();
@@ -12584,9 +12584,9 @@ var require_pkcs12 = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/pki.js
+// node_modules/node-forge/lib/pki.js
 var require_pki = __commonJS({
-  "electron/node_modules/node-forge/lib/pki.js"(exports2, module2) {
+  "node_modules/node-forge/lib/pki.js"(exports2, module2) {
     var forge2 = require_forge();
     require_asn1();
     require_oids();
@@ -12637,9 +12637,9 @@ var require_pki = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/tls.js
+// node_modules/node-forge/lib/tls.js
 var require_tls = __commonJS({
-  "electron/node_modules/node-forge/lib/tls.js"(exports2, module2) {
+  "node_modules/node-forge/lib/tls.js"(exports2, module2) {
     var forge2 = require_forge();
     require_asn1();
     require_hmac();
@@ -14670,9 +14670,9 @@ var require_tls = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/aesCipherSuites.js
+// node_modules/node-forge/lib/aesCipherSuites.js
 var require_aesCipherSuites = __commonJS({
-  "electron/node_modules/node-forge/lib/aesCipherSuites.js"(exports2, module2) {
+  "node_modules/node-forge/lib/aesCipherSuites.js"(exports2, module2) {
     var forge2 = require_forge();
     require_aes();
     require_tls();
@@ -14814,9 +14814,9 @@ var require_aesCipherSuites = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/sha512.js
+// node_modules/node-forge/lib/sha512.js
 var require_sha512 = __commonJS({
-  "electron/node_modules/node-forge/lib/sha512.js"(exports2, module2) {
+  "node_modules/node-forge/lib/sha512.js"(exports2, module2) {
     var forge2 = require_forge();
     require_md();
     require_util();
@@ -15222,9 +15222,9 @@ var require_sha512 = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/asn1-validator.js
+// node_modules/node-forge/lib/asn1-validator.js
 var require_asn1_validator = __commonJS({
-  "electron/node_modules/node-forge/lib/asn1-validator.js"(exports2) {
+  "node_modules/node-forge/lib/asn1-validator.js"(exports2) {
     var forge2 = require_forge();
     require_asn1();
     var asn1 = forge2.asn1;
@@ -15314,9 +15314,9 @@ var require_asn1_validator = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/ed25519.js
+// node_modules/node-forge/lib/ed25519.js
 var require_ed25519 = __commonJS({
-  "electron/node_modules/node-forge/lib/ed25519.js"(exports2, module2) {
+  "node_modules/node-forge/lib/ed25519.js"(exports2, module2) {
     var forge2 = require_forge();
     require_jsbn();
     require_random();
@@ -16427,9 +16427,9 @@ var require_ed25519 = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/kem.js
+// node_modules/node-forge/lib/kem.js
 var require_kem = __commonJS({
-  "electron/node_modules/node-forge/lib/kem.js"(exports2, module2) {
+  "node_modules/node-forge/lib/kem.js"(exports2, module2) {
     var forge2 = require_forge();
     require_util();
     require_random();
@@ -16490,9 +16490,9 @@ var require_kem = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/log.js
+// node_modules/node-forge/lib/log.js
 var require_log = __commonJS({
-  "electron/node_modules/node-forge/lib/log.js"(exports2, module2) {
+  "node_modules/node-forge/lib/log.js"(exports2, module2) {
     var forge2 = require_forge();
     require_util();
     module2.exports = forge2.log = forge2.log || {};
@@ -16665,9 +16665,9 @@ var require_log = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/md.all.js
+// node_modules/node-forge/lib/md.all.js
 var require_md_all = __commonJS({
-  "electron/node_modules/node-forge/lib/md.all.js"(exports2, module2) {
+  "node_modules/node-forge/lib/md.all.js"(exports2, module2) {
     module2.exports = require_md();
     require_md5();
     require_sha1();
@@ -16676,9 +16676,9 @@ var require_md_all = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/pkcs7.js
+// node_modules/node-forge/lib/pkcs7.js
 var require_pkcs7 = __commonJS({
-  "electron/node_modules/node-forge/lib/pkcs7.js"(exports2, module2) {
+  "node_modules/node-forge/lib/pkcs7.js"(exports2, module2) {
     var forge2 = require_forge();
     require_aes();
     require_asn1();
@@ -17665,9 +17665,9 @@ var require_pkcs7 = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/ssh.js
+// node_modules/node-forge/lib/ssh.js
 var require_ssh = __commonJS({
-  "electron/node_modules/node-forge/lib/ssh.js"(exports2, module2) {
+  "node_modules/node-forge/lib/ssh.js"(exports2, module2) {
     var forge2 = require_forge();
     require_aes();
     require_hmac();
@@ -17801,9 +17801,9 @@ var require_ssh = __commonJS({
   }
 });
 
-// electron/node_modules/node-forge/lib/index.js
+// node_modules/node-forge/lib/index.js
 var require_lib = __commonJS({
-  "electron/node_modules/node-forge/lib/index.js"(exports2, module2) {
+  "node_modules/node-forge/lib/index.js"(exports2, module2) {
     module2.exports = require_forge();
     require_aes();
     require_aesCipherSuites();
@@ -17834,7 +17834,7 @@ var require_lib = __commonJS({
 });
 
 // electron/main.cjs
-var { app, BrowserWindow, ipcMain, dialog, safeStorage } = require("electron");
+var { app, BrowserWindow, ipcMain, dialog } = require("electron");
 var path = require("path");
 var fs = require("fs");
 var https = require("https");
@@ -17924,83 +17924,6 @@ ipcMain.handle("getCertificateInfo", async (_e, { base64, password }) => {
     validTo: cert.validity.notAfter.toISOString()
   };
 });
-function savedCertPaths() {
-  const dir = app.getPath("userData");
-  return {
-    data: path.join(dir, "verifactu-cert.dat"),
-    meta: path.join(dir, "verifactu-cert.meta.json")
-  };
-}
-function readSavedCert() {
-  const { data, meta } = savedCertPaths();
-  if (!fs.existsSync(data) || !fs.existsSync(meta)) return null;
-  if (!safeStorage.isEncryptionAvailable()) {
-    throw new Error("safeStorage no est\xE1 disponible en este sistema");
-  }
-  const enc = fs.readFileSync(data);
-  const dec = safeStorage.decryptString(enc);
-  const parsed = JSON.parse(dec);
-  const metaJson = JSON.parse(fs.readFileSync(meta, "utf8"));
-  return { base64: parsed.base64, password: parsed.password, name: metaJson.name, info: metaJson.info };
-}
-function certInfoFromCert(cert) {
-  const subj = cert.subject.attributes.map((a) => `${a.shortName}=${a.value}`).join(", ");
-  const nifAttr = cert.subject.attributes.find((a) => a.shortName === "serialNumber" || a.name === "serialNumber");
-  let nif = "";
-  if (nifAttr) {
-    const v = String(nifAttr.value);
-    nif = v.replace(/^IDCES-?/i, "");
-  }
-  return {
-    subject: subj,
-    nif,
-    validFrom: cert.validity.notBefore.toISOString(),
-    validTo: cert.validity.notAfter.toISOString()
-  };
-}
-ipcMain.handle("saveCertificate", async (_e, { base64, password, name }) => {
-  try {
-    if (!safeStorage.isEncryptionAvailable()) {
-      return { ok: false, error: "safeStorage no est\xE1 disponible en este sistema" };
-    }
-    const { cert } = loadPfx(base64, password);
-    const info = certInfoFromCert(cert);
-    const { data, meta } = savedCertPaths();
-    const enc = safeStorage.encryptString(JSON.stringify({ base64, password }));
-    fs.writeFileSync(data, enc, { mode: 384 });
-    fs.writeFileSync(meta, JSON.stringify({ name: name || "certificate.p12", info }), { mode: 384 });
-    return { ok: true, name: name || "certificate.p12", info };
-  } catch (err) {
-    return { ok: false, error: String(err && err.message || err) };
-  }
-});
-ipcMain.handle("getSavedCertificate", async () => {
-  try {
-    const s = readSavedCert();
-    if (!s) return null;
-    return { name: s.name, info: s.info };
-  } catch (err) {
-    return { error: String(err && err.message || err) };
-  }
-});
-ipcMain.handle("clearSavedCertificate", async () => {
-  const { data, meta } = savedCertPaths();
-  try {
-    if (fs.existsSync(data)) fs.unlinkSync(data);
-  } catch {
-  }
-  try {
-    if (fs.existsSync(meta)) fs.unlinkSync(meta);
-  } catch {
-  }
-  return { ok: true };
-});
-function resolveCreds(base64, password) {
-  if (base64 && password) return { base64, password };
-  const s = readSavedCert();
-  if (!s) throw new Error("No hay certificado guardado");
-  return { base64: s.base64, password: s.password };
-}
 function canonicalize(xml) {
   return xml.replace(/^\s*<\?xml[^?]*\?>\s*/, "");
 }
@@ -18047,8 +17970,7 @@ function buildSignedXml(xml, { keyPem, certPem, certChain }) {
 }
 ipcMain.handle("signXml", async (_e, { base64, password, xml }) => {
   try {
-    const creds = resolveCreds(base64, password);
-    const pfx = loadPfx(creds.base64, creds.password);
+    const pfx = loadPfx(base64, password);
     const signedXml = buildSignedXml(xml, pfx);
     return { ok: true, signedXml };
   } catch (err) {
@@ -18072,18 +17994,12 @@ function pickError(xml) {
   return m ? m[1].trim() : "";
 }
 ipcMain.handle("submitToAeat", async (_e, { base64, password, signedXml, mode }) => {
-  let creds;
-  try {
-    creds = resolveCreds(base64, password);
-  } catch (err) {
-    return { ok: false, httpStatus: 0, csv: "", estadoEnvio: "", responseXml: "", errorMessage: String(err && err.message || err) };
-  }
   const endpoint = AEAT_ENDPOINTS[mode] || AEAT_ENDPOINTS.sandbox;
   const url = new URL(endpoint);
-  const pfxBuf = Buffer.from(creds.base64, "base64");
+  const pfxBuf = Buffer.from(base64, "base64");
   const agent = new https.Agent({
     pfx: pfxBuf,
-    passphrase: creds.password,
+    passphrase: password,
     keepAlive: false
   });
   return await new Promise((resolve) => {
