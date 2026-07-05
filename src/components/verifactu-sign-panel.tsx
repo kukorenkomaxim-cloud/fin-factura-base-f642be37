@@ -448,40 +448,52 @@ export function VerifactuSignPanel({ documentId }: Props) {
 
       {desktopAvailable && (
         <div className="mt-4 space-y-4">
-          <div className="flex flex-wrap items-end gap-3">
-            <Button onClick={handlePickCert} disabled={busy} variant="outline">
-              {t.pickCert}
-            </Button>
-            {certName && (
-              <span className="text-sm text-muted-foreground truncate max-w-[20rem]">
-                {certName}
-              </span>
-            )}
-          </div>
-
-          {certBase64 && (
-            <div className="grid gap-3 md:grid-cols-[1fr_auto] md:items-end">
-              <div className="space-y-2">
-                <Label>{t.certPassword}</Label>
-                <Input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  autoComplete="off"
-                />
+          {savedCert ? (
+            <div className="rounded-md border border-green-300 bg-green-50 p-3 text-xs dark:border-green-700 dark:bg-green-950/30 space-y-1">
+              <div className="flex items-center gap-2 text-sm font-medium">
+                <ShieldCheck className="h-4 w-4 text-green-600" />
+                {t.savedCertBadge} — NIF {savedCert.info.nif}
               </div>
-              <Button onClick={handleVerifyCert} disabled={busy} variant="secondary">
-                {t.checkBtn}
-              </Button>
+              <div className="text-muted-foreground">{t.usingSavedCertNote}</div>
             </div>
-          )}
+          ) : (
+            <>
+              <div className="flex flex-wrap items-end gap-3">
+                <Button onClick={handlePickCert} disabled={busy} variant="outline">
+                  {t.pickCert}
+                </Button>
+                {certName && (
+                  <span className="text-sm text-muted-foreground truncate max-w-[20rem]">
+                    {certName}
+                  </span>
+                )}
+              </div>
 
-          {certInfo && (
-            <div className="rounded-md bg-muted p-3 text-xs">
-              <div><b>NIF:</b> {certInfo.nif}</div>
-              <div><b>Subject:</b> {certInfo.subject}</div>
-              <div><b>{t.validUntil}:</b> {certInfo.validFrom} — {certInfo.validTo}</div>
-            </div>
+              {certBase64 && (
+                <div className="grid gap-3 md:grid-cols-[1fr_auto] md:items-end">
+                  <div className="space-y-2">
+                    <Label>{t.certPassword}</Label>
+                    <Input
+                      type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      autoComplete="off"
+                    />
+                  </div>
+                  <Button onClick={handleVerifyCert} disabled={busy} variant="secondary">
+                    {t.checkBtn}
+                  </Button>
+                </div>
+              )}
+
+              {certInfo && (
+                <div className="rounded-md bg-muted p-3 text-xs">
+                  <div><b>NIF:</b> {certInfo.nif}</div>
+                  <div><b>Subject:</b> {certInfo.subject}</div>
+                  <div><b>{t.validUntil}:</b> {certInfo.validFrom} — {certInfo.validTo}</div>
+                </div>
+              )}
+            </>
           )}
 
           <div className="flex flex-wrap gap-2 pt-2">
