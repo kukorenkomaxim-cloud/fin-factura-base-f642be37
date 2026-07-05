@@ -17,23 +17,27 @@ export function DesktopCertificateSection() {
   const { t } = useLocale();
   const desktop = isDesktop();
   const [saved, setSaved] = useState<SavedCert | null>(null);
-  const [loading, setLoading] = useState(true);
   const [pickedBase64, setPickedBase64] = useState("");
   const [pickedName, setPickedName] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
 
   async function refresh() {
-    setLoading(true);
     const api = getDesktop();
-    if (!api) { setLoading(false); return; }
-    const res = await api.getSavedCertificate();
-    if (res && "info" in res) setSaved({ name: res.name, info: res.info });
-    else setSaved(null);
-    setLoading(false);
+    if (!api || typeof api.getSavedCertificate !== "function") {
+      setSaved(null);
+      return;
+    }
+    try {
+      const res = await api.getSavedCertificate();
+      if (res && "info" in res) setSaved({ name: res.name, info: res.info });
+      else setSaved(null);
+    } catch {
+      setSaved(null);
+    }
   }
 
-  useEffect(() => { if (desktop) refresh(); else setLoading(false); }, [desktop]);
+  useEffect(() => { if (desktop) refresh(); }, [desktop]);
 
   async function handlePick() {
     const api = getDesktop();
