@@ -310,7 +310,7 @@ export function VerifactuSignPanel({ documentId }: Props) {
       });
       return;
     }
-    if (!certBase64 || !password) {
+    if (!hasCredentials) {
       toast.error(t.needCertForMtls);
       return;
     }
