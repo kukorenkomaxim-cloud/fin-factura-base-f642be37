@@ -351,13 +351,19 @@ function pickError(xml) {
 }
 
 ipcMain.handle('submitToAeat', async (_e, { base64, password, signedXml, mode }) => {
+  let creds;
+  try {
+    creds = resolveCreds(base64, password);
+  } catch (err) {
+    return { ok: false, httpStatus: 0, csv: '', estadoEnvio: '', responseXml: '', errorMessage: String(err && err.message || err) };
+  }
   const endpoint = AEAT_ENDPOINTS[mode] || AEAT_ENDPOINTS.sandbox;
   const url = new URL(endpoint);
-  const pfxBuf = Buffer.from(base64, 'base64');
+  const pfxBuf = Buffer.from(creds.base64, 'base64');
 
   const agent = new https.Agent({
     pfx: pfxBuf,
-    passphrase: password,
+    passphrase: creds.password,
     keepAlive: false,
   });
 
