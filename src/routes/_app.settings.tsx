@@ -15,6 +15,7 @@ import { toast } from "sonner";
 import { COUNTRIES, countryNameKey } from "@/lib/countries";
 import { EmailAccountsSection } from "@/components/email-accounts-section";
 import { DataManagementSection } from "@/components/data-management-section";
+import { DesktopCertificateSection } from "@/components/desktop-certificate-section";
 
 export const Route = createFileRoute("/_app/settings")({
   component: SettingsPage,
