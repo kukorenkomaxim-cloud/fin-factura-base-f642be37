@@ -13,13 +13,13 @@ export interface FacturaDesktop {
   pickCertificate: () => Promise<{ path: string; name: string; base64: string } | null>;
   getCertificateInfo: (args: { base64: string; password: string }) => Promise<DesktopCertInfo>;
   signXml: (args: {
-    base64: string;
-    password: string;
+    base64?: string;
+    password?: string;
     xml: string;
   }) => Promise<{ ok: boolean; signedXml?: string; error?: string }>;
   submitToAeat: (args: {
-    base64: string;
-    password: string;
+    base64?: string;
+    password?: string;
     signedXml: string;
     mode: "sandbox" | "production";
   }) => Promise<{
@@ -30,6 +30,15 @@ export interface FacturaDesktop {
     responseXml?: string;
     errorMessage?: string;
   }>;
+  saveCertificate: (args: {
+    base64: string;
+    password: string;
+    name?: string;
+  }) => Promise<{ ok: boolean; name?: string; info?: DesktopCertInfo; error?: string }>;
+  getSavedCertificate: () => Promise<
+    { name: string; info: DesktopCertInfo } | { error: string } | null
+  >;
+  clearSavedCertificate: () => Promise<{ ok: boolean }>;
 }
 
 declare global {
