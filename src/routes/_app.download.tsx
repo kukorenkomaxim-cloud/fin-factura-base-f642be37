@@ -1,12 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Download, Apple, Monitor } from "lucide-react";
+import { Download, Apple, Monitor, Cpu } from "lucide-react";
 import { useLocale } from "@/hooks/use-locale";
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const WIN_URL = `${SUPABASE_URL}/storage/v1/object/public/downloads/FinCraft-Windows_v8.zip`;
-const MAC_URL = `${SUPABASE_URL}/storage/v1/object/public/downloads/FinCraft-macOS_v8.zip`;
+const VERSION = "v9";
+const WIN_URL = `${SUPABASE_URL}/storage/v1/object/public/downloads/FinCraft-Windows_${VERSION}.zip`;
+const MAC_INTEL_URL = `${SUPABASE_URL}/storage/v1/object/public/downloads/FinCraft-macOS-Intel_${VERSION}.zip`;
+const MAC_ARM_URL = `${SUPABASE_URL}/storage/v1/object/public/downloads/FinCraft-macOS-AppleSilicon_${VERSION}.zip`;
 
 export const Route = createFileRoute("/_app/download")({
   component: DownloadPage,
@@ -20,19 +22,28 @@ function DownloadPage() {
     ? {
         title: "Десктоп-приложение",
         subtitle:
-          "Установите FinCraft на свой компьютер для быстрого доступа без браузера.",
+          "Установите FinCraft на свой компьютер для быстрого доступа без браузера. Сертификат электронной подписи сохраняется в приложении и применяется автоматически при отправке фактур в AEAT.",
         win: "Скачать для Windows",
-        mac: "Скачать для macOS",
+        macIntel: "Скачать для macOS (Intel)",
+        macArm: "Скачать для macOS (Apple Silicon M1/M2/M3)",
         winHint: "Распакуйте архив и запустите FinCraft.exe",
-        macHint: "Распакуйте архив и перетащите FinCraft.app в Applications",
+        macIntelHint:
+          "Для Mac с процессором Intel. Распакуйте архив и перетащите FinCraft.app в Applications.",
+        macArmHint:
+          "Для Mac с процессором Apple Silicon (M1, M2, M3). Распакуйте архив и перетащите FinCraft.app в Applications.",
       }
     : {
         title: "Desktop application",
-        subtitle: "Install FinCraft on your computer for quick access without a browser.",
+        subtitle:
+          "Install FinCraft on your computer for quick access without a browser. Your e-signature certificate is stored inside the app and applied automatically when sending invoices to AEAT.",
         win: "Download for Windows",
-        mac: "Download for macOS",
+        macIntel: "Download for macOS (Intel)",
+        macArm: "Download for macOS (Apple Silicon M1/M2/M3)",
         winHint: "Unzip the archive and run FinCraft.exe",
-        macHint: "Unzip the archive and drag FinCraft.app to Applications",
+        macIntelHint:
+          "For Macs with Intel CPUs. Unzip the archive and drag FinCraft.app to Applications.",
+        macArmHint:
+          "For Macs with Apple Silicon (M1, M2, M3). Unzip the archive and drag FinCraft.app to Applications.",
       };
 
   return (
@@ -42,7 +53,7 @@ function DownloadPage() {
         <p className="mt-1 text-muted-foreground">{t.subtitle}</p>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-4 md:grid-cols-3">
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -63,15 +74,32 @@ function DownloadPage() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Apple className="h-5 w-5" /> macOS
+              <Apple className="h-5 w-5" /> macOS (Intel)
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            <p className="text-sm text-muted-foreground">{t.macHint}</p>
+            <p className="text-sm text-muted-foreground">{t.macIntelHint}</p>
             <Button asChild className="w-full">
-              <a href={MAC_URL} download>
+              <a href={MAC_INTEL_URL} download>
                 <Download className="mr-2 h-4 w-4" />
-                {t.mac}
+                {t.macIntel}
+              </a>
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Cpu className="h-5 w-5" /> macOS (Apple Silicon)
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <p className="text-sm text-muted-foreground">{t.macArmHint}</p>
+            <Button asChild className="w-full">
+              <a href={MAC_ARM_URL} download>
+                <Download className="mr-2 h-4 w-4" />
+                {t.macArm}
               </a>
             </Button>
           </CardContent>
@@ -80,3 +108,4 @@ function DownloadPage() {
     </div>
   );
 }
+
