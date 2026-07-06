@@ -4,11 +4,16 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Download, Apple, Monitor, Cpu } from "lucide-react";
 import { useLocale } from "@/hooks/use-locale";
 
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const VERSION = "v9";
-const WIN_URL = `${SUPABASE_URL}/storage/v1/object/public/downloads/FinCraft-Windows_${VERSION}.zip`;
-const MAC_INTEL_URL = `${SUPABASE_URL}/storage/v1/object/public/downloads/FinCraft-macOS-Intel_${VERSION}.zip`;
-const MAC_ARM_URL = `${SUPABASE_URL}/storage/v1/object/public/downloads/FinCraft-macOS-AppleSilicon_${VERSION}.zip`;
+const WIN_URL =
+  "https://github.com/kukorenkomaxim-cloud/fin-factura-base-f642be37/releases/download/v9/FinCraft-win32-x64.zip";
+const MAC_INTEL_URL =
+  "https://github.com/kukorenkomaxim-cloud/fin-factura-base-f642be37/releases/download/v9/FinCraft-darwin-x64.zip";
+const MAC_ARM_URL =
+  "https://github.com/kukorenkomaxim-cloud/fin-factura-base-f642be37/releases/download/v9/FinCraft-darwin-arm64.zip";
+
+const WIN_FILENAME = "FinCraft-Windows_v9.zip";
+const MAC_INTEL_FILENAME = "FinCraft-macOS-Intel_v9.zip";
+const MAC_ARM_FILENAME = "FinCraft-macOS-AppleSilicon_v9.zip";
 
 export const Route = createFileRoute("/_app/download")({
   component: DownloadPage,
@@ -62,8 +67,11 @@ function DownloadPage() {
           </CardHeader>
           <CardContent className="space-y-3">
             <p className="text-sm text-muted-foreground">{t.winHint}</p>
+            <p className="text-xs font-mono text-muted-foreground">
+              {WIN_FILENAME}
+            </p>
             <Button asChild className="w-full">
-              <a href={WIN_URL} download>
+              <a href={WIN_URL} download={WIN_FILENAME}>
                 <Download className="mr-2 h-4 w-4" />
                 {t.win}
               </a>
@@ -79,8 +87,11 @@ function DownloadPage() {
           </CardHeader>
           <CardContent className="space-y-3">
             <p className="text-sm text-muted-foreground">{t.macIntelHint}</p>
+            <p className="text-xs font-mono text-muted-foreground">
+              {MAC_INTEL_FILENAME}
+            </p>
             <Button asChild className="w-full">
-              <a href={MAC_INTEL_URL} download>
+              <a href={MAC_INTEL_URL} download={MAC_INTEL_FILENAME}>
                 <Download className="mr-2 h-4 w-4" />
                 {t.macIntel}
               </a>
@@ -96,8 +107,11 @@ function DownloadPage() {
           </CardHeader>
           <CardContent className="space-y-3">
             <p className="text-sm text-muted-foreground">{t.macArmHint}</p>
+            <p className="text-xs font-mono text-muted-foreground">
+              {MAC_ARM_FILENAME}
+            </p>
             <Button asChild className="w-full">
-              <a href={MAC_ARM_URL} download>
+              <a href={MAC_ARM_URL} download={MAC_ARM_FILENAME}>
                 <Download className="mr-2 h-4 w-4" />
                 {t.macArm}
               </a>
