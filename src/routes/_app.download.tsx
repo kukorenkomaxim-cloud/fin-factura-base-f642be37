@@ -156,6 +156,51 @@ function DownloadPage() {
           </CardContent>
         </Card>
       </div>
+
+      <Card className="border-amber-300 bg-amber-50 dark:border-amber-700 dark:bg-amber-950/30">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-amber-900 dark:text-amber-200">
+            <AlertTriangle className="h-5 w-5" />
+            {t.macNoteTitle}
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4 text-sm text-amber-900 dark:text-amber-100">
+          <p>{t.macNoteIntro}</p>
+          <div>
+            <p className="font-medium">{t.macStepsTitle}</p>
+            <ol className="mt-2 list-decimal space-y-1 pl-5">
+              <li>{t.macStep1}</li>
+              <li>{t.macStep2}</li>
+              <li>{t.macStep3}</li>
+              <li>{t.macStep4}</li>
+            </ol>
+          </div>
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+            <code className="flex-1 select-all rounded-md bg-background px-3 py-2 font-mono text-xs text-foreground border">
+              {XATTR_CMD}
+            </code>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={handleCopy}
+              className="shrink-0"
+            >
+              {copied ? (
+                <>
+                  <Check className="mr-2 h-4 w-4" />
+                  {t.copied}
+                </>
+              ) : (
+                <>
+                  <Copy className="mr-2 h-4 w-4" />
+                  {t.copy}
+                </>
+              )}
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }
