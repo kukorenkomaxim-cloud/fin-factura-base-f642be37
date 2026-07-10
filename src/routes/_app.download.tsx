@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Download, Apple, Monitor, Cpu } from "lucide-react";
+import { Download, Apple, Monitor, Cpu, AlertTriangle, Copy, Check } from "lucide-react";
+import { toast } from "sonner";
 import { useLocale } from "@/hooks/use-locale";
 
 const WIN_URL =
