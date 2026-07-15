@@ -104,7 +104,7 @@ export const adminListUsers = createServerFn({ method: "GET" })
     }
 
     const now = Date.now();
-    const rows: AdminUserRow[] = users.map((u) => {
+    const rows: AdminUserRow[] = users.map((u: any) => {
       const sub = subMap.get(u.id) as
         | { status: string; plan: string; valid_until: string | null; source: string }
         | undefined;
@@ -204,7 +204,7 @@ export const adminListCodes = createServerFn({ method: "GET" })
 
     // Resolve redeemer emails
     const { data: authData } = await supabaseAdmin.auth.admin.listUsers({ page: 1, perPage: 1000 });
-    const emailMap = new Map((authData?.users ?? []).map((u) => [u.id, u.email ?? null]));
+    const emailMap = new Map((authData?.users ?? []).map((u: any) => [u.id, u.email ?? null]));
 
     const rows: AdminCodeRow[] = (codes ?? []).map((c: Omit<AdminCodeRow, "redeemed_email">) => ({
       ...c,
