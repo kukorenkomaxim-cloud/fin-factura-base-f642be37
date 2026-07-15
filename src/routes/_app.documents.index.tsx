@@ -215,6 +215,7 @@ function DocumentsList() {
   async function onDownload(d: DocRow) {
     await downloadPdf({
       docType: d.doc_type, seqNumber: d.seq_number, docMonth: d.doc_month, docYear: d.doc_year,
+      formattedNumber: d.formatted_number ?? undefined,
       issueDate: d.issue_date, language: d.language, currency: d.currency,
       issuerName: d.issuer_name, issuerTaxNumber: d.issuer_tax_number,
       issuerAddressLine1: d.issuer_address_line1, issuerAddressLine2: d.issuer_address_line2,
