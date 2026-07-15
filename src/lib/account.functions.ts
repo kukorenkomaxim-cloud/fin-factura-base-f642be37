@@ -2,7 +2,7 @@
 // account deletion (right to erasure). Each acts only on the authenticated
 // caller's own data.
 import { createServerFn } from "@tanstack/react-start";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireAppAuth } from "@/lib/auth-middleware";
 
 // Tables included in the data export (right to data portability).
 // Sensitive secrets (e.g. encrypted email tokens) are intentionally excluded.
@@ -46,7 +46,7 @@ export type ExportPayload = {
 
 /** Returns all of the caller's own data as a single JSON-serializable object. */
 export const exportMyData = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireAppAuth])
   .handler(async ({ context }): Promise<ExportPayload> => {
     const { supabase, userId, claims } = context;
     const data: Record<string, JsonValue[]> = {};
@@ -70,10 +70,10 @@ export const exportMyData = createServerFn({ method: "GET" })
 
 /** Permanently deletes the caller's data and their auth account. */
 export const deleteMyAccount = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireAppAuth])
   .handler(async ({ context }): Promise<{ ok: true }> => {
     const { userId } = context;
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = (await import("@/integrations/supabase/client.server")).supabaseAdmin as any;
 
     // 1. Remove all owned rows.
     for (const table of DELETE_TABLES) {

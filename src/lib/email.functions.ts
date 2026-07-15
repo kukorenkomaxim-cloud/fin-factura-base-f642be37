@@ -1,7 +1,7 @@
 // Client-callable server functions for email accounts and sending.
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireAppAuth } from "@/lib/auth-middleware";
 import {
   buildGmailRawMessage,
   getAdminClient,
@@ -10,7 +10,7 @@ import {
 
 /** Mint a short-lived, signed one-time code to start Gmail OAuth without putting the JWT in the URL. */
 export const createGmailOAuthCode = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireAppAuth])
   .handler(async ({ context }) => {
     const { signState } = await import("./email-crypto.server");
     const code = signState({
@@ -24,7 +24,7 @@ export const createGmailOAuthCode = createServerFn({ method: "POST" })
 
 /** List user's connected email accounts (without exposing tokens). */
 export const listEmailAccounts = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireAppAuth])
   .handler(async ({ context }) => {
     const { supabase } = context;
     const { data, error } = await supabase
@@ -36,7 +36,7 @@ export const listEmailAccounts = createServerFn({ method: "GET" })
   });
 
 export const setDefaultEmailAccount = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireAppAuth])
   .inputValidator((input) => z.object({ accountId: z.string().uuid() }).parse(input))
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
@@ -50,7 +50,7 @@ export const setDefaultEmailAccount = createServerFn({ method: "POST" })
   });
 
 export const disconnectEmailAccount = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireAppAuth])
   .inputValidator((input) => z.object({ accountId: z.string().uuid() }).parse(input))
   .handler(async ({ data, context }) => {
     const { supabase } = context;
@@ -61,7 +61,7 @@ export const disconnectEmailAccount = createServerFn({ method: "POST" })
 
 /** Send PDF document via Gmail. */
 export const sendDocumentByGmail = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireAppAuth])
   .inputValidator((input) =>
     z
       .object({
@@ -170,7 +170,7 @@ export const sendDocumentByGmail = createServerFn({ method: "POST" })
 
 /** Log mailto send (user opened mail client and confirmed they sent it). */
 export const logMailtoSend = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireAppAuth])
   .inputValidator((input) =>
     z
       .object({
@@ -199,7 +199,7 @@ export const logMailtoSend = createServerFn({ method: "POST" })
 
 /** Get last send status for a document. */
 export const getDocumentSendStatus = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireAppAuth])
   .inputValidator((input) => z.object({ documentId: z.string().uuid() }).parse(input))
   .handler(async ({ data, context }) => {
     const { supabase } = context;

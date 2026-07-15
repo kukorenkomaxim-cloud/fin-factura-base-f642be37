@@ -2,7 +2,7 @@
 // Every function verifies the caller has the 'admin' role before doing any work.
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireAppAuth } from "@/lib/auth-middleware";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function assertAdmin(supabaseAdmin: any, userId: string) {
@@ -46,12 +46,12 @@ export type AdminUserRow = {
 
 /** Lists all registered users with usage metrics. periodDays controls the login-count window. */
 export const adminListUsers = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireAppAuth])
   .inputValidator((input) =>
     z.object({ periodDays: z.number().int().min(1).max(3650).default(30) }).parse(input),
   )
   .handler(async ({ data, context }): Promise<{ users: AdminUserRow[] }> => {
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = (await import("@/integrations/supabase/client.server")).supabaseAdmin as any;
     await assertAdmin(supabaseAdmin, context.userId);
 
     // 1. Auth users (email, created, last sign-in)
@@ -104,7 +104,7 @@ export const adminListUsers = createServerFn({ method: "GET" })
     }
 
     const now = Date.now();
-    const rows: AdminUserRow[] = users.map((u) => {
+    const rows: AdminUserRow[] = users.map((u: any) => {
       const sub = subMap.get(u.id) as
         | { status: string; plan: string; valid_until: string | null; source: string }
         | undefined;
@@ -152,7 +152,7 @@ export type AdminCodeRow = {
 
 /** Generates one or more free access codes. */
 export const adminGenerateCodes = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireAppAuth])
   .inputValidator((input) =>
     z
       .object({
@@ -165,7 +165,7 @@ export const adminGenerateCodes = createServerFn({ method: "POST" })
       .parse(input),
   )
   .handler(async ({ data, context }) => {
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = (await import("@/integrations/supabase/client.server")).supabaseAdmin as any;
     await assertAdmin(supabaseAdmin, context.userId);
 
     const codeExpiresAt = data.codeExpiresInDays
@@ -191,9 +191,9 @@ export const adminGenerateCodes = createServerFn({ method: "POST" })
 
 /** Lists all access codes with redeemer email. */
 export const adminListCodes = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireAppAuth])
   .handler(async ({ context }): Promise<{ codes: AdminCodeRow[] }> => {
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = (await import("@/integrations/supabase/client.server")).supabaseAdmin as any;
     await assertAdmin(supabaseAdmin, context.userId);
 
     const { data: codes, error } = await supabaseAdmin
@@ -204,7 +204,7 @@ export const adminListCodes = createServerFn({ method: "GET" })
 
     // Resolve redeemer emails
     const { data: authData } = await supabaseAdmin.auth.admin.listUsers({ page: 1, perPage: 1000 });
-    const emailMap = new Map((authData?.users ?? []).map((u) => [u.id, u.email ?? null]));
+    const emailMap = new Map((authData?.users ?? []).map((u: any) => [u.id, u.email ?? null]));
 
     const rows: AdminCodeRow[] = (codes ?? []).map((c: Omit<AdminCodeRow, "redeemed_email">) => ({
       ...c,
@@ -215,7 +215,7 @@ export const adminListCodes = createServerFn({ method: "GET" })
 
 /** Directly grants or extends a subscription for a user. */
 export const adminGrantSubscription = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireAppAuth])
   .inputValidator((input) =>
     z
       .object({
@@ -226,7 +226,7 @@ export const adminGrantSubscription = createServerFn({ method: "POST" })
       .parse(input),
   )
   .handler(async ({ data, context }) => {
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = (await import("@/integrations/supabase/client.server")).supabaseAdmin as any;
     await assertAdmin(supabaseAdmin, context.userId);
 
     const { data: existing } = await supabaseAdmin
@@ -271,12 +271,12 @@ export type AdminVisitorStats = {
  * service role and returns only counts — no visitor identifiers leave the server.
  */
 export const adminVisitorStats = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireAppAuth])
   .inputValidator((input) =>
     z.object({ periodDays: z.number().int().min(1).max(3650).default(30) }).parse(input),
   )
   .handler(async ({ data, context }): Promise<AdminVisitorStats> => {
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = (await import("@/integrations/supabase/client.server")).supabaseAdmin as any;
     await assertAdmin(supabaseAdmin, context.userId);
 
     const cutoff = new Date(Date.now() - data.periodDays * 86_400_000).toISOString();
@@ -306,10 +306,10 @@ export const adminVisitorStats = createServerFn({ method: "GET" })
 
 /** Revokes a user's subscription (immediately blocks access). */
 export const adminRevokeSubscription = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireAppAuth])
   .inputValidator((input) => z.object({ userId: z.string().uuid() }).parse(input))
   .handler(async ({ data, context }) => {
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = (await import("@/integrations/supabase/client.server")).supabaseAdmin as any;
     await assertAdmin(supabaseAdmin, context.userId);
 
     const { error } = await supabaseAdmin

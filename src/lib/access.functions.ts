@@ -1,7 +1,7 @@
 // Client-callable server functions for subscription-based access control.
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireAppAuth } from "@/lib/auth-middleware";
 
 export type AccessInfo = {
   isAdmin: boolean;
@@ -16,10 +16,10 @@ export type AccessInfo = {
 
 /** Returns the current user's access status (admin or active subscription). */
 export const getMyAccess = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireAppAuth])
   .handler(async ({ context }): Promise<AccessInfo> => {
     const { userId } = context;
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = (await import("@/integrations/supabase/client.server")).supabaseAdmin as any;
 
     const { data: roleRow } = await supabaseAdmin
       .from("user_roles")
@@ -50,7 +50,7 @@ export const getMyAccess = createServerFn({ method: "GET" })
 
 /** Records a login event for usage statistics. */
 export const recordLogin = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireAppAuth])
   .handler(async ({ context }) => {
     const { supabase, userId } = context;
     await supabase.from("login_events").insert({ user_id: userId });
@@ -59,13 +59,13 @@ export const recordLogin = createServerFn({ method: "POST" })
 
 /** Redeems an access code and activates / extends the user's subscription. */
 export const redeemAccessCode = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireAppAuth])
   .inputValidator((input) =>
     z.object({ code: z.string().trim().min(1).max(64) }).parse(input),
   )
   .handler(async ({ data, context }) => {
     const { userId } = context;
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = (await import("@/integrations/supabase/client.server")).supabaseAdmin as any;
     const normalized = data.code.trim().toUpperCase();
 
     const { data: code, error: codeErr } = await supabaseAdmin
