@@ -1,0 +1,1 @@
+DROP INDEX IF EXISTS public.documents_user_doctype_seq_nonrect_uidx;
