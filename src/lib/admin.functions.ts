@@ -51,7 +51,7 @@ export const adminListUsers = createServerFn({ method: "GET" })
     z.object({ periodDays: z.number().int().min(1).max(3650).default(30) }).parse(input),
   )
   .handler(async ({ data, context }): Promise<{ users: AdminUserRow[] }> => {
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = (await import("@/integrations/supabase/client.server")).supabaseAdmin as any;
     await assertAdmin(supabaseAdmin, context.userId);
 
     // 1. Auth users (email, created, last sign-in)
@@ -165,7 +165,7 @@ export const adminGenerateCodes = createServerFn({ method: "POST" })
       .parse(input),
   )
   .handler(async ({ data, context }) => {
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = (await import("@/integrations/supabase/client.server")).supabaseAdmin as any;
     await assertAdmin(supabaseAdmin, context.userId);
 
     const codeExpiresAt = data.codeExpiresInDays
@@ -193,7 +193,7 @@ export const adminGenerateCodes = createServerFn({ method: "POST" })
 export const adminListCodes = createServerFn({ method: "GET" })
   .middleware([requireAppAuth])
   .handler(async ({ context }): Promise<{ codes: AdminCodeRow[] }> => {
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = (await import("@/integrations/supabase/client.server")).supabaseAdmin as any;
     await assertAdmin(supabaseAdmin, context.userId);
 
     const { data: codes, error } = await supabaseAdmin
@@ -226,7 +226,7 @@ export const adminGrantSubscription = createServerFn({ method: "POST" })
       .parse(input),
   )
   .handler(async ({ data, context }) => {
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = (await import("@/integrations/supabase/client.server")).supabaseAdmin as any;
     await assertAdmin(supabaseAdmin, context.userId);
 
     const { data: existing } = await supabaseAdmin
@@ -276,7 +276,7 @@ export const adminVisitorStats = createServerFn({ method: "GET" })
     z.object({ periodDays: z.number().int().min(1).max(3650).default(30) }).parse(input),
   )
   .handler(async ({ data, context }): Promise<AdminVisitorStats> => {
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = (await import("@/integrations/supabase/client.server")).supabaseAdmin as any;
     await assertAdmin(supabaseAdmin, context.userId);
 
     const cutoff = new Date(Date.now() - data.periodDays * 86_400_000).toISOString();
@@ -309,7 +309,7 @@ export const adminRevokeSubscription = createServerFn({ method: "POST" })
   .middleware([requireAppAuth])
   .inputValidator((input) => z.object({ userId: z.string().uuid() }).parse(input))
   .handler(async ({ data, context }) => {
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = (await import("@/integrations/supabase/client.server")).supabaseAdmin as any;
     await assertAdmin(supabaseAdmin, context.userId);
 
     const { error } = await supabaseAdmin

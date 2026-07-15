@@ -73,7 +73,7 @@ export const deleteMyAccount = createServerFn({ method: "POST" })
   .middleware([requireAppAuth])
   .handler(async ({ context }): Promise<{ ok: true }> => {
     const { userId } = context;
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = (await import("@/integrations/supabase/client.server")).supabaseAdmin as any;
 
     // 1. Remove all owned rows.
     for (const table of DELETE_TABLES) {

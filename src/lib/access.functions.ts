@@ -19,7 +19,7 @@ export const getMyAccess = createServerFn({ method: "GET" })
   .middleware([requireAppAuth])
   .handler(async ({ context }): Promise<AccessInfo> => {
     const { userId } = context;
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = (await import("@/integrations/supabase/client.server")).supabaseAdmin as any;
 
     const { data: roleRow } = await supabaseAdmin
       .from("user_roles")
@@ -65,7 +65,7 @@ export const redeemAccessCode = createServerFn({ method: "POST" })
   )
   .handler(async ({ data, context }) => {
     const { userId } = context;
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = (await import("@/integrations/supabase/client.server")).supabaseAdmin as any;
     const normalized = data.code.trim().toUpperCase();
 
     const { data: code, error: codeErr } = await supabaseAdmin
