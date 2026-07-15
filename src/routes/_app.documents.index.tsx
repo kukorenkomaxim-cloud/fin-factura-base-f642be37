@@ -240,6 +240,11 @@ function DocumentsList() {
       rectifiedInvoiceNumber: d.rectified_invoice_number,
       rectifiedInvoiceDate: d.rectified_invoice_date ?? undefined,
       isAnnulled: d.is_annulled,
+      exchangeRate: (d as any).exchange_rate ?? null,
+      exchangeRateDate: (d as any).exchange_rate_date ?? null,
+      amountNetEur: (d as any).amount_net_eur != null ? Number((d as any).amount_net_eur) : undefined,
+      vatAmountEur: (d as any).vat_amount_eur != null ? Number((d as any).vat_amount_eur) : undefined,
+      amountTotalEur: (d as any).amount_total_eur != null ? Number((d as any).amount_total_eur) : undefined,
     });
   }
 
