@@ -215,6 +215,26 @@ function DownloadPage() {
           </div>
         </CardContent>
       </Card>
+
+      <Card className="border-amber-300 bg-amber-50 dark:border-amber-700 dark:bg-amber-950/30">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-amber-900 dark:text-amber-200">
+            <Monitor className="h-5 w-5" />
+            {t.winNoteTitle}
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4 text-sm text-amber-900 dark:text-amber-100">
+          <p>{t.winNoteIntro}</p>
+          <div>
+            <p className="font-medium">{t.winStepsTitle}</p>
+            <ol className="mt-2 list-decimal space-y-1 pl-5">
+              <li>{t.winStep1}</li>
+              <li>{t.winStep2}</li>
+              <li>{t.winStep3}</li>
+            </ol>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }
