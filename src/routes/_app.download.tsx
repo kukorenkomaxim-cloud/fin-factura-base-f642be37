@@ -62,11 +62,11 @@ function DownloadPage() {
         macStep4: "Запустите FinCraft обычным двойным кликом.",
         winNoteTitle: "Важно для пользователей Windows",
         winNoteIntro:
-          "При первом запуске FinCraft.exe Windows может показать окно «Windows защитила ваш компьютер» или «Не удаётся проверить издателя». Это стандартная защита Microsoft Defender SmartScreen для программ без цифровой подписи. Файл цел — нужно один раз разрешить запуск.",
+          "Если Windows показывает только кнопки «Принять» и «Получить приложение из Магазина», это новое ограничение источника приложений, а не обычное окно SmartScreen. Нужно разрешить установку программ не только из Microsoft Store.",
         winStepsTitle: "Что сделать:",
-        winStep1: "Нажмите «Подробнее» (More info) в окне предупреждения.",
-        winStep2: "Нажмите «Выполнить в любом случае» (Run anyway).",
-        winStep3: "При следующем запуске программа откроется обычным двойным кликом.",
+        winStep1: "Откройте «Параметры» → «Приложения» → «Дополнительные параметры приложений».",
+        winStep2: "В пункте «Выбор источника приложений» выберите «Из любого места».",
+        winStep3: "Снова запустите FinCraft.exe. Если параметр отсутствует или заблокирован, компьютер работает в S-режиме либо настройка управляется организацией — потребуется выйти из S-режима в разделе «Система» → «Активация» или обратиться к администратору.",
         copy: "Скопировать команду",
         copied: "Скопировано",
       }
@@ -92,11 +92,11 @@ function DownloadPage() {
         macStep4: "Launch FinCraft with a normal double-click.",
         winNoteTitle: "Important for Windows users",
         winNoteIntro:
-          "On first launch of FinCraft.exe, Windows may show a \u201CWindows protected your PC\u201D or \u201CUnknown publisher\u201D warning. This is the standard Microsoft Defender SmartScreen warning for unsigned applications. The file is fine \u2014 you just need to allow it to run once.",
+          "If Windows only offers \u201CAccept\u201D and \u201CGet app from Store\u201D, this is the newer app-source restriction rather than the usual SmartScreen dialog. Windows must be set to allow applications from outside Microsoft Store.",
         winStepsTitle: "What to do:",
-        winStep1: "Click \u201CMore info\u201D in the warning dialog.",
-        winStep2: "Click \u201CRun anyway\u201D.",
-        winStep3: "The next time you launch FinCraft, it will open with a normal double-click.",
+        winStep1: "Open Settings → Apps → Advanced app settings.",
+        winStep2: "Under \u201CChoose where to get apps\u201D, select \u201CAnywhere\u201D.",
+        winStep3: "Launch FinCraft.exe again. If that setting is missing or locked, the PC is in S mode or managed by an organization; leave S mode under System → Activation or contact the administrator.",
         copy: "Copy command",
         copied: "Copied",
       };
