@@ -7,7 +7,9 @@ import type { Database } from './types';
 
 function createSupabaseAdminClient() {
   const SUPABASE_URL = "https://idscnhzmrwttfmdkrhtc.supabase.co";
-  const SUPABASE_SERVICE_ROLE_KEY = process.env.USER_SUPABASE_SERVICE_ROLE_KEY;
+  // Bracket access keeps Vite from replacing this private runtime secret
+  // with undefined while bundling the server worker.
+  const SUPABASE_SERVICE_ROLE_KEY = process.env["USER_SUPABASE_SERVICE_ROLE_KEY"];
 
   if (!SUPABASE_SERVICE_ROLE_KEY) {
     throw new Error(
