@@ -5,6 +5,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useAuth } from "@/hooks/use-auth";
 import { useLocale } from "@/hooks/use-locale";
 import { getMyAccess } from "@/lib/access.functions";
+import { supabase } from "@/integrations/supabase/client";
 import { SubscriptionGate } from "@/components/subscription-gate";
 import { Button } from "@/components/ui/button";
 import {
@@ -42,6 +43,24 @@ function AppLayout() {
     staleTime: 60_000,
   });
 
+  // Fallback admin check straight from the database (own role row), so the
+  // admin section never disappears if the server access check fails.
+  const { data: roleAdmin } = useQuery({
+    queryKey: ["my-admin-role", user?.id],
+    enabled: !!user,
+    staleTime: 60_000,
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("user_roles" as never)
+        .select("role")
+        .eq("user_id", user!.id)
+        .eq("role", "admin")
+        .maybeSingle();
+      return !!data;
+    },
+  });
+  const isAdmin = !!access?.isAdmin || !!roleAdmin;
+
   const NAV = [
     { to: "/documents", label: t.navDocuments, icon: FileText },
     { to: "/clients", label: t.navClients, icon: Users },
@@ -49,7 +68,7 @@ function AppLayout() {
     { to: "/summary", label: t.navSummary, icon: BarChart3 },
     { to: "/settings", label: t.navSettings, icon: SettingsIcon },
     { to: "/download", label: lang === "ru" || lang === "uk" ? "Десктоп" : "Desktop", icon: Download },
-    ...(access?.isAdmin
+    ...(isAdmin
       ? [{ to: "/admin", label: t.navAdmin, icon: ShieldCheck } as const]
       : []),
   ] as const;
