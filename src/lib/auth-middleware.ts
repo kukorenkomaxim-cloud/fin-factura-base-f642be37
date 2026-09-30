@@ -25,7 +25,7 @@ export const requireAppAuth = createMiddleware({ type: "function" }).server(asyn
 
   const token = authHeader.replace("Bearer ", "");
   if (!token || token.split(".").length !== 3) {
-    throw new Error("Unauthorized: Invalid token");
+    throw new Error("Unauthorized: Invalid token format");
   }
 
   const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
@@ -45,7 +45,7 @@ export const requireAppAuth = createMiddleware({ type: "function" }).server(asyn
   const { data, error } = await supabase.auth.getUser(token);
   if (error || !data?.user?.id) {
     console.error("[requireAppAuth] token validation failed:", error?.message);
-    throw new Error("Unauthorized: Invalid token");
+    throw new Error(`Unauthorized: Invalid token (${error?.message ?? "no user"})`);
   }
 
   return next({
