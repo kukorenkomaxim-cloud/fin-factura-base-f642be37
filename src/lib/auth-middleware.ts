@@ -41,20 +41,18 @@ export const requireAppAuth = createMiddleware({ type: "function" }).server(asyn
     },
   });
 
-  const { data, error } = await supabase.auth.getClaims(token);
-  if (error || !data?.claims) {
+  // Validate the token directly with the auth server (works for any signing key type).
+  const { data, error } = await supabase.auth.getUser(token);
+  if (error || !data?.user?.id) {
+    console.error("[requireAppAuth] token validation failed:", error?.message);
     throw new Error("Unauthorized: Invalid token");
-  }
-
-  if (!data.claims.sub) {
-    throw new Error("Unauthorized: No user ID found in token");
   }
 
   return next({
     context: {
       supabase,
-      userId: data.claims.sub,
-      claims: data.claims,
+      userId: data.user.id,
+      claims: { sub: data.user.id, email: data.user.email },
     },
   });
 });

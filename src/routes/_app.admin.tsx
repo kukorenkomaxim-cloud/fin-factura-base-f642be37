@@ -80,7 +80,7 @@ function VisitorsTab() {
   const [pendingPeriod, setPendingPeriod] = useState("30");
 
   const fetchStats = useServerFn(adminVisitorStats);
-  const { data, isLoading, isError, refetch, isFetching } = useQuery({
+  const { data, isLoading, isError, error, refetch, isFetching } = useQuery({
     queryKey: ["admin-visitors", periodDays],
     queryFn: () => fetchStats({ data: { periodDays } }),
   });
@@ -91,7 +91,11 @@ function VisitorsTab() {
   }
 
   if (isError) {
-    return <p className="mt-6 text-sm text-destructive">{t.adminAccessDenied}</p>;
+    return (
+      <p className="mt-6 text-sm text-destructive">
+        {String((error as Error)?.message ?? "").includes("Forbidden") ? t.adminAccessDenied : `${t.adminError}: ${(error as Error)?.message ?? ""}`}
+      </p>
+    );
   }
 
   const stats = [
@@ -149,7 +153,7 @@ function UsersTab() {
   const [pendingPeriod, setPendingPeriod] = useState("30");
 
   const fetchUsers = useServerFn(adminListUsers);
-  const { data, isLoading, isError, refetch, isFetching } = useQuery({
+  const { data, isLoading, isError, error, refetch, isFetching } = useQuery({
     queryKey: ["admin-users", periodDays],
     queryFn: () => fetchUsers({ data: { periodDays } }),
   });
@@ -180,7 +184,11 @@ function UsersTab() {
   }
 
   if (isError) {
-    return <p className="mt-6 text-sm text-destructive">{t.adminAccessDenied}</p>;
+    return (
+      <p className="mt-6 text-sm text-destructive">
+        {String((error as Error)?.message ?? "").includes("Forbidden") ? t.adminAccessDenied : `${t.adminError}: ${(error as Error)?.message ?? ""}`}
+      </p>
+    );
   }
 
   return (
