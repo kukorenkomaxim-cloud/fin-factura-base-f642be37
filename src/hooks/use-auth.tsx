@@ -26,9 +26,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser(s?.user ?? null);
     });
 
-    supabase.auth.getSession().then(({ data }) => {
-      setSession(data.session);
-      setUser(data.session?.user ?? null);
+    // Refresh on startup instead of trusting a persisted access token. A token can
+    // still look valid locally after its server-side auth session was revoked.
+    // Refreshing first either restores an active session or clears the stale one
+    // before protected server functions begin loading.
+    supabase.auth.refreshSession().then(({ data, error }) => {
+      const activeSession = error ? null : data.session;
+      setSession(activeSession);
+      setUser(activeSession?.user ?? null);
       setLoading(false);
     });
 
