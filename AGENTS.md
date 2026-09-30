@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - Read the external database admin credential through `process.env["USER_SUPABASE_SERVICE_ROLE_KEY"]` only in server execution so the bundler cannot erase it.
+- Refresh the persisted external-database auth session during app startup before protected server functions run, because locally cached access tokens can outlive their server session.

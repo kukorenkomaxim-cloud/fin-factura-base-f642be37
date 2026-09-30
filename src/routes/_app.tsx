@@ -39,7 +39,7 @@ function AppLayout() {
   } = useQuery({
     queryKey: ["my-access"],
     queryFn: () => fetchAccess(),
-    enabled: !!user,
+    enabled: !authLoading && !!user,
     staleTime: 60_000,
   });
 
@@ -47,7 +47,7 @@ function AppLayout() {
   // admin section never disappears if the server access check fails.
   const { data: roleAdmin } = useQuery({
     queryKey: ["my-admin-role", user?.id],
-    enabled: !!user,
+    enabled: !authLoading && !!user,
     staleTime: 60_000,
     queryFn: async () => {
       const { data } = await supabase
