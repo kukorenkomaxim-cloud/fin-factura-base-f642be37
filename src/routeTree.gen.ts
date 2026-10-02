@@ -9,29 +9,33 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SignupRouteImport } from './routes/signup'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as LegalTermsRouteImport } from './routes/legal.terms'
-import { Route as LegalPrivacyRouteImport } from './routes/legal.privacy'
-import { Route as LegalNoticeRouteImport } from './routes/legal.notice'
-import { Route as LegalCookiesRouteImport } from './routes/legal.cookies'
-import { Route as AppSummaryRouteImport } from './routes/_app.summary'
-import { Route as AppSettingsRouteImport } from './routes/_app.settings'
-import { Route as AppServicesRouteImport } from './routes/_app.services'
-import { Route as AppDownloadRouteImport } from './routes/_app.download'
-import { Route as AppClientsRouteImport } from './routes/_app.clients'
+import { Route as AppRouteImport } from './routes/_app'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as SignupRouteImport } from './routes/signup'
 import { Route as AppAdminRouteImport } from './routes/_app.admin'
+import { Route as AppClientsRouteImport } from './routes/_app.clients'
+import { Route as AppDownloadRouteImport } from './routes/_app.download'
+import { Route as AppServicesRouteImport } from './routes/_app.services'
+import { Route as AppSettingsRouteImport } from './routes/_app.settings'
+import { Route as AppSummaryRouteImport } from './routes/_app.summary'
+import { Route as LegalCookiesRouteImport } from './routes/legal.cookies'
+import { Route as LegalNoticeRouteImport } from './routes/legal.notice'
+import { Route as LegalPrivacyRouteImport } from './routes/legal.privacy'
+import { Route as LegalTermsRouteImport } from './routes/legal.terms'
 import { Route as AppDocumentsIndexRouteImport } from './routes/_app.documents.index'
-import { Route as AppDocumentsNewRouteImport } from './routes/_app.documents.new'
 import { Route as AppDocumentsIdRouteImport } from './routes/_app.documents.$id'
-import { Route as ApiOauthGmailStartRouteImport } from './routes/api/oauth/gmail/start'
+import { Route as AppDocumentsNewRouteImport } from './routes/_app.documents.new'
 import { Route as ApiOauthGmailCallbackRouteImport } from './routes/api/oauth/gmail/callback'
+import { Route as ApiOauthGmailStartRouteImport } from './routes/api/oauth/gmail/start'
 
-const SignupRoute = SignupRouteImport.update({
-  id: '/signup',
-  path: '/signup',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppRoute = AppRouteImport.update({
+  id: '/_app',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -39,53 +43,14 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppRoute = AppRouteImport.update({
-  id: '/_app',
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LegalTermsRoute = LegalTermsRouteImport.update({
-  id: '/legal/terms',
-  path: '/legal/terms',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LegalPrivacyRoute = LegalPrivacyRouteImport.update({
-  id: '/legal/privacy',
-  path: '/legal/privacy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LegalNoticeRoute = LegalNoticeRouteImport.update({
-  id: '/legal/notice',
-  path: '/legal/notice',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LegalCookiesRoute = LegalCookiesRouteImport.update({
-  id: '/legal/cookies',
-  path: '/legal/cookies',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AppSummaryRoute = AppSummaryRouteImport.update({
-  id: '/summary',
-  path: '/summary',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppSettingsRoute = AppSettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppServicesRoute = AppServicesRouteImport.update({
-  id: '/services',
-  path: '/services',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppDownloadRoute = AppDownloadRouteImport.update({
-  id: '/download',
-  path: '/download',
+const AppAdminRoute = AppAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => AppRoute,
 } as any)
 const AppClientsRoute = AppClientsRouteImport.update({
@@ -93,19 +58,49 @@ const AppClientsRoute = AppClientsRouteImport.update({
   path: '/clients',
   getParentRoute: () => AppRoute,
 } as any)
-const AppAdminRoute = AppAdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
+const AppDownloadRoute = AppDownloadRouteImport.update({
+  id: '/download',
+  path: '/download',
   getParentRoute: () => AppRoute,
+} as any)
+const AppServicesRoute = AppServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSummaryRoute = AppSummaryRouteImport.update({
+  id: '/summary',
+  path: '/summary',
+  getParentRoute: () => AppRoute,
+} as any)
+const LegalCookiesRoute = LegalCookiesRouteImport.update({
+  id: '/legal/cookies',
+  path: '/legal/cookies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalNoticeRoute = LegalNoticeRouteImport.update({
+  id: '/legal/notice',
+  path: '/legal/notice',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalPrivacyRoute = LegalPrivacyRouteImport.update({
+  id: '/legal/privacy',
+  path: '/legal/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalTermsRoute = LegalTermsRouteImport.update({
+  id: '/legal/terms',
+  path: '/legal/terms',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AppDocumentsIndexRoute = AppDocumentsIndexRouteImport.update({
   id: '/documents/',
   path: '/documents/',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppDocumentsNewRoute = AppDocumentsNewRouteImport.update({
-  id: '/documents/new',
-  path: '/documents/new',
   getParentRoute: () => AppRoute,
 } as any)
 const AppDocumentsIdRoute = AppDocumentsIdRouteImport.update({
@@ -113,14 +108,19 @@ const AppDocumentsIdRoute = AppDocumentsIdRouteImport.update({
   path: '/documents/$id',
   getParentRoute: () => AppRoute,
 } as any)
-const ApiOauthGmailStartRoute = ApiOauthGmailStartRouteImport.update({
-  id: '/api/oauth/gmail/start',
-  path: '/api/oauth/gmail/start',
-  getParentRoute: () => rootRouteImport,
+const AppDocumentsNewRoute = AppDocumentsNewRouteImport.update({
+  id: '/documents/new',
+  path: '/documents/new',
+  getParentRoute: () => AppRoute,
 } as any)
 const ApiOauthGmailCallbackRoute = ApiOauthGmailCallbackRouteImport.update({
   id: '/api/oauth/gmail/callback',
   path: '/api/oauth/gmail/callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiOauthGmailStartRoute = ApiOauthGmailStartRouteImport.update({
+  id: '/api/oauth/gmail/start',
+  path: '/api/oauth/gmail/start',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -265,18 +265,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/signup': {
-      id: '/signup'
-      path: '/signup'
-      fullPath: '/signup'
-      preLoaderRoute: typeof SignupRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_app': {
@@ -286,67 +279,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/legal/terms': {
-      id: '/legal/terms'
-      path: '/legal/terms'
-      fullPath: '/legal/terms'
-      preLoaderRoute: typeof LegalTermsRouteImport
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/legal/privacy': {
-      id: '/legal/privacy'
-      path: '/legal/privacy'
-      fullPath: '/legal/privacy'
-      preLoaderRoute: typeof LegalPrivacyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/legal/notice': {
-      id: '/legal/notice'
-      path: '/legal/notice'
-      fullPath: '/legal/notice'
-      preLoaderRoute: typeof LegalNoticeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/legal/cookies': {
-      id: '/legal/cookies'
-      path: '/legal/cookies'
-      fullPath: '/legal/cookies'
-      preLoaderRoute: typeof LegalCookiesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_app/summary': {
-      id: '/_app/summary'
-      path: '/summary'
-      fullPath: '/summary'
-      preLoaderRoute: typeof AppSummaryRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/settings': {
-      id: '/_app/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof AppSettingsRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/services': {
-      id: '/_app/services'
-      path: '/services'
-      fullPath: '/services'
-      preLoaderRoute: typeof AppServicesRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/download': {
-      id: '/_app/download'
-      path: '/download'
-      fullPath: '/download'
-      preLoaderRoute: typeof AppDownloadRouteImport
+    '/_app/admin': {
+      id: '/_app/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AppAdminRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/clients': {
@@ -356,25 +307,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppClientsRouteImport
       parentRoute: typeof AppRoute
     }
-    '/_app/admin': {
-      id: '/_app/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AppAdminRouteImport
+    '/_app/download': {
+      id: '/_app/download'
+      path: '/download'
+      fullPath: '/download'
+      preLoaderRoute: typeof AppDownloadRouteImport
       parentRoute: typeof AppRoute
+    }
+    '/_app/services': {
+      id: '/_app/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof AppServicesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/settings': {
+      id: '/_app/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/summary': {
+      id: '/_app/summary'
+      path: '/summary'
+      fullPath: '/summary'
+      preLoaderRoute: typeof AppSummaryRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/legal/cookies': {
+      id: '/legal/cookies'
+      path: '/legal/cookies'
+      fullPath: '/legal/cookies'
+      preLoaderRoute: typeof LegalCookiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/notice': {
+      id: '/legal/notice'
+      path: '/legal/notice'
+      fullPath: '/legal/notice'
+      preLoaderRoute: typeof LegalNoticeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/privacy': {
+      id: '/legal/privacy'
+      path: '/legal/privacy'
+      fullPath: '/legal/privacy'
+      preLoaderRoute: typeof LegalPrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/terms': {
+      id: '/legal/terms'
+      path: '/legal/terms'
+      fullPath: '/legal/terms'
+      preLoaderRoute: typeof LegalTermsRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_app/documents/': {
       id: '/_app/documents/'
       path: '/documents'
       fullPath: '/documents/'
       preLoaderRoute: typeof AppDocumentsIndexRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/documents/new': {
-      id: '/_app/documents/new'
-      path: '/documents/new'
-      fullPath: '/documents/new'
-      preLoaderRoute: typeof AppDocumentsNewRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/documents/$id': {
@@ -384,18 +377,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppDocumentsIdRouteImport
       parentRoute: typeof AppRoute
     }
-    '/api/oauth/gmail/start': {
-      id: '/api/oauth/gmail/start'
-      path: '/api/oauth/gmail/start'
-      fullPath: '/api/oauth/gmail/start'
-      preLoaderRoute: typeof ApiOauthGmailStartRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_app/documents/new': {
+      id: '/_app/documents/new'
+      path: '/documents/new'
+      fullPath: '/documents/new'
+      preLoaderRoute: typeof AppDocumentsNewRouteImport
+      parentRoute: typeof AppRoute
     }
     '/api/oauth/gmail/callback': {
       id: '/api/oauth/gmail/callback'
       path: '/api/oauth/gmail/callback'
       fullPath: '/api/oauth/gmail/callback'
       preLoaderRoute: typeof ApiOauthGmailCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/oauth/gmail/start': {
+      id: '/api/oauth/gmail/start'
+      path: '/api/oauth/gmail/start'
+      fullPath: '/api/oauth/gmail/start'
+      preLoaderRoute: typeof ApiOauthGmailStartRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
